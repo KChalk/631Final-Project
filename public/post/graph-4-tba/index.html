@@ -1166,27 +1166,19 @@ corlong &lt;- melt(correlations ) %&gt;%
 </div>
 <div id="variations-and-alternatives" class="section level3">
 <h3>Variations and Alternatives</h3>
-<p>A more common use of this graph is to show, within a a dataset, covariance between features. In that version, the features on each axis would be identical, and along the</p>
-<p>would be 1 because the correlation would be complete because they are actually the same values. This plot is following that same theme, and while the same information is represented on both axes, it is after the PCA. The axes tell what features we’re looking at, and the tiles on the map are colored according to their values. In this case, they are colored by the magnitude of correlation.</p>
-<p>It has two discrete axes.</p>
-<p>Slightly more common to illustrate covariation within a data frame. Also used to represent successful and failed categorization (true positives and true negatives).</p>
+<p>A more common use of this graph is to show, within a a dataset, covariance between features. In that version, the features on each axis would be identical, and along the diagnals, all values are 1, representing correlation between a variable and itsels. A similar graph commonly represents performance of supervised machine learning algorithms; in such a plot the axis represent true and predicted categories of data, and values represent the number of correct and incorrectly classified data points.</p>
 </div>
 </div>
 <div id="plot-description" class="section level2">
 <h2>Plot Description</h2>
-<p>Principal components on the x-axis and features one the y-axis, with tiles colored by correlation. The decision to have original on y and reduced on x is arbitrary. Then I kept the smaller number of values on the x-axis mostly for legibility of the labels. My color scheme ranges from dark purple to dark green with white in the center in order to make values that are far from 0 pop out. I was unable to find a way to highlight specific rows and columns, but that would be a useful addition to the plot.</p>
 <div id="representaton" class="section level3">
 <h3>Representaton</h3>
-<pre class="r"><code>ggplot(corlong, aes(x=red_dim, y=orig, fill=correlation))+
-  geom_tile()+ 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  scale_fill_distiller(palette = &quot;PRGn&quot;)</code></pre>
+<p>This graph show the correlation between principal components on the x-axis and dictionary frequencies on the y-axis and color representing the corelation values. The decision to have original values on the y axis and principal components on the x is arbitrary but does make dictionary labels easier to read. My color scheme ranges from dark purple to dark green with white in the center in order to make values that are far from 0 pop out. I was unable to find a way to highlight specific rows and columns (I wanted to put a bold outline around coluns of interest), but that would be a useful addition to the plot.</p>
 <p><img src="/post/2018-06-11-graph-3-tba_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>  #scale_fill_viridis(option=&#39;E&#39;)</code></pre>
 </div>
 <div id="methods" class="section level3">
 <h3>Methods</h3>
-<pre class="r"><code>covariances &lt;- read_csv(here(&#39;static&#39;,&#39;data&#39;,&#39;redditProject&#39;,&#39;subset_covariance.csv&#39;))</code></pre>
+<p>I originally made this plot by reading in covariances from a dataframe constructed in python and using the default colors. This was terribly ineffective.</p>
 <pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -1194,12 +1186,8 @@ corlong &lt;- melt(correlations ) %&gt;%
 ##   X1 = col_character()
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
-<pre class="r"><code>covlong &lt;- gather(covariances, key=newDimension, value=covariance, -X1)
-
-ggplot(covlong, aes(x=newDimension, y=X1, fill=covariance))+
-  geom_tile()+
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))</code></pre>
 <p><img src="/post/2018-06-11-graph-3-tba_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The actual plot presented here is based on the correlations calucluated in the chunck incldued in the data section of this post. The visualization of these values is extremely simple, including on one ggplot call to specify appropriate aesthetics and the added geom_tile line. I also add a line to specify the purple/green color palette and one more to rotate x axis labels so that they don’t overlap.</p>
 </div>
 </div>
 
