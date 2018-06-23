@@ -122,6 +122,7 @@ ggradar(clusters[2,], grid.label.size = 0,
   theme(text=element_text(family='Lato')) 
 
 ggradar(clusters[3,],grid.label.size = 0,
+        plot.extent.x.sf = 2,
         group.point.size = 3,
         axis.label.size = 4,
         axis.labels = dlabels,
@@ -133,6 +134,7 @@ ggradar(clusters[3,],grid.label.size = 0,
 
 
 ggradar(clusters[4,], grid.label.size = 0,
+        plot.extent.x.sf = 2,
         group.point.size = 3,
         axis.label.size = 3,
         axis.labels = dlabels,
@@ -144,6 +146,7 @@ ggradar(clusters[4,], grid.label.size = 0,
 
 
 ggradar(clusters[5,], grid.label.size = 0,
+        plot.extent.x.sf = 2,
         group.point.size = 3,
         axis.label.size = 3,
         axis.labels = dlabels,
@@ -156,6 +159,7 @@ ggradar(clusters[5,], grid.label.size = 0,
           
           
 ggradar(clusters[6,], grid.label.size = 0,
+        plot.extent.x.sf = 2,
         group.point.size = 4,
         axis.label.size = 3,
         axis.labels = dlabels,
@@ -167,6 +171,7 @@ ggradar(clusters[6,], grid.label.size = 0,
 
 
 ggradar(clusters[7,], grid.label.size = 0,
+        plot.extent.x.sf = 2,
         group.point.size = 4,
         axis.label.size = 3,
         axis.labels = dlabels,
