@@ -18,8 +18,8 @@
       
       <guid>/post/graph-5-finale/</guid>
       <description>Preliminaries Data All the graphs of this series are generated from data concerning frequency with which words from assorted dictionaries appear in original reddit posts from various subreddits.
-The first dataset, called allsubs includes 5 columns :
-subreddit the name of one of ~120k subreddits posts a count of (qualifying) posts in each subreddit wordcount a sum of the total number of words in all posts in that subreddit abscount a sum of the total number of ‘absolutist’ words in posts</description>
+ Audience In its current form, audience for this project is almost entirely myself and the professors I’m trying to convince to help me with this project. Eventually I hope to research may be of interest to a larger group, including:
+Linguists interested in this method of textual analysis and the language of internet forums Computer sciencists interested in the distributed computing or machine learning that went into this project Social scientists studying any of the many social groups involved on reddit.</description>
     </item>
     
     <item>

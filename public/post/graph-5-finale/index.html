@@ -1113,16 +1113,6 @@ div.main .content .markdown pre, div.main .content .markdown pre code {
 <div id="section-data" class="section level3">
 <h3>Data</h3>
 <p>All the graphs of this series are generated from data concerning frequency with which words from assorted dictionaries appear in original reddit posts from various subreddits.</p>
-<p>The first dataset, called <code>allsubs</code> includes 5 columns :</p>
-<ol style="list-style-type: decimal">
-<li><code>subreddit</code> the name of one of ~120k subreddits</li>
-<li><code>posts</code> a count of (qualifying) posts in each subreddit</li>
-<li><code>wordcount</code> a sum of the total number of words in all posts in that subreddit</li>
-<li><code>abscount</code> a sum of the total number of ‘absolutist’ words in posts<br />
-</li>
-<li><code>freq</code> the frequency of absolutist words in qualifying posts, calculated as <span class="math display">\[\frac{number\ of\ absolutist\ words}{number\ of\ total\ words}\]</span></li>
-</ol>
-<pre class="r"><code>allsubs &lt;- read_tsv(here(&#39;static&#39;,&#39;data&#39;,&#39;redditProject&#39;,&#39;output.tsv&#39;))</code></pre>
 </div>
 <div id="section-audience" class="section level3">
 <h3>Audience</h3>
@@ -1219,78 +1209,10 @@ corlong &lt;- corlong %&gt;%
 ## )</code></pre>
 <pre><code>## See spec(...) for full column specifications.</code></pre>
 <pre class="r"><code>pcs &lt;- distinct(corlong[&#39;red_dim&#39;])
-cs &lt;- distinct(clusters[&#39;X1&#39;])
-
-ui &lt;- fluidPage(
-  titlePanel(&quot;PCA Correlations&quot;),
-  sidebarLayout(
-    sidebarPanel(
-      selectInput(inputId = &quot;pc&quot;,
-                  label = &quot;Principle Component/New Dimemsion&quot;,
-                  choices=pcs,
-                  selected=&#39;d1&#39;)
-      ),
-      selectInput(inputId = &quot;clusterN&quot;,
-                  label = &quot;Cluster&quot;,
-                  choices = list(&quot;Choice 1&quot; = 1, 
-                                 &quot;Choice 2&quot; = 2, 
-                                 &quot;Choice 3&quot; = 3,
-                                 &quot;Choice 4&quot; = 4, 
-                                 &quot;Choice 5&quot; = 5, 
-                                 &quot;Choice 6&quot; = 6,
-                                 &quot;Choice 7&quot; = 7#, 
-                                 #&quot;Choice 8&quot; = 8, 
-                                 #&quot;Choice 9&quot; = 9,
-                                 #&quot;Choice 10&quot; = 10, 
-                                 #&quot;Choice 11&quot; = 11
-                                 ),
-                  selected=1)
-      ),
-    # Main panel for displaying outputs ----
-    mainPanel(
-      plotOutput(outputId = &quot;corPlot&quot;),
-      plotOutput(outputId = &quot;clusterPlot&quot;)
-    )
-  ) 
-
-
-server &lt;- function(input, output) {
-  output$corPlot &lt;- renderPlot({
-    workingdf &lt;- corlong %&gt;%  
-      filter(red_dim==input$pc) %&gt;% 
-      mutate(poscor=abs(correlation), sign=case_when(correlation&gt;=0~&#39;pos&#39;, correlation&lt;0~&#39;neg&#39;))
-    
-    ggplot(workingdf, aes(x=fct_reorder(orig,poscor,.desc = TRUE), y=poscor, color=dictcat, fill=sign))+
-      geom_col()+
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-      scale_fill_manual(values=c(&quot;gray80&quot;,&quot;#FFFFFF&quot;))
-    
-  })
-
-  output$clusterPlot &lt;- renderPlot({
-    radar_colour=c(&quot;#FF5A5F&quot;, &quot;#FFB400&quot;, &quot;#007A87&quot;,  &quot;#8CE071&quot;, &quot;#7B0051&quot;, &quot;#00D1C1&quot;, &quot;#FFAA91&quot;, &quot;#B4A76C&quot;, &quot;#9CA299&quot;, &quot;#565A5C&quot;, &quot;#00A04B&quot;, &quot;#E54C20&quot;)
-  
-    clusters &lt;- read_csv(here(&#39;static&#39;,&#39;data&#39;,&#39;redditProject&#39;,&#39;centers&#39;)) 
-    
-    clusters &lt;- clusters %&gt;%  
-      mutate_at(vars(starts_with(&#39;d&#39;)),rescale)
-   
-    clusterN=as.numeric(input$clusterN)
-    print(clusterN)
-    ggradar(clusters[clusterN,], grid.label.size = 5,
-        group.point.size = 3,
-        axis.label.size = 4,
-        #axis.labels = dlabels,
-        legend.text.size = 11,
-        group.colours = radar_colour[clusterN])+
-      theme(legend.position=&quot;bottom&quot;) 
-  })
-
-}
-
-shinyApp(ui = ui, server = server)</code></pre>
-<iframe data-deferred-src="appbaa01de7a7389b4a427ad556adbd9d40/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe>
-<p>```</p>
+cs &lt;- distinct(clusters[&#39;X1&#39;])</code></pre>
+<p>The chart is hosted on <a href="https://kchalk.shinyapps.io/631Shiny/">shinyapps.io</a> <iframe id="example1" src="https://kchalk.shinyapps.io/631Shiny/"
+style="border: non; width: 100%; height: 500px"
+frameborder="0"> </iframe></p>
 </div>
 </div>
 
